@@ -1,7 +1,10 @@
 import axios from "axios";
 import type { Movie, WatchlistItem, ContinueWatchingItem, AuthUser, MovieGenre } from "@/types";
 
-const baseURL = (import.meta as any).env.VITE_API_URL || "/api";
+const rawBaseUrl = (import.meta as any).env.VITE_API_URL;
+const baseURL = rawBaseUrl 
+  ? (rawBaseUrl.endsWith("/api") ? rawBaseUrl : `${rawBaseUrl.replace(/\/$/, "")}/api`) 
+  : "/api";
 
 export const api = axios.create({ baseURL, timeout: 20000 });
 
